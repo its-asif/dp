@@ -40,28 +40,24 @@
 #define S i.second
 using namespace std;
 
-const int N = 3e3 + 69;
-ll dp[N][N],arr[N];
-ll n,k,taro=0,jiro=0;
+const int N = 1e5 + 69;
+ll dp[N],arr[N];
 
-ll f(ll ind){
-    if(ind==n) return 0;
-    ll ans=0,cnt=0;
-    for (int i = 0; i <= arr[ind]; ++i)  // 0-1 , 0-2, 0-3
-    {
-        cout<<ind sps i sp;
-        ans = (i + f(ind+1))%1000000007;
-    }
-    
-    return ans;
+int f(int i,int n){
+    if(i<arr[0]) return 0;
+    if(dp[i]!=-1) return dp[i];
+    fj(n){
+        if(f(i-arr[j],n)==0 && i>=arr[j]) return dp[i] = 1;
+    } 
+    return dp[i] = 0;
 }
 
 int main(){
-    cin>>n>>k;
+    int n,m; cin>>n>>m;
     fi(n) cin>>arr[i];
     memset(dp,-1,sizeof(dp));
-    ll x= f(0);
-
-    // cout<<x;
+    int ans= f(m,n);
+    if(ans==1) cout<<"First" nl;
+    else cout<<"Second" nl;
 }
 

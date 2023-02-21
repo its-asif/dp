@@ -39,29 +39,37 @@
 #define F i.first
 #define S i.second
 using namespace std;
+// const int N = 1e5+69;
+ll dp[3069][3069];
 
-const int N = 3e3 + 69;
-ll dp[N][N],arr[N];
-ll n,k,taro=0,jiro=0;
-
-ll f(ll ind){
-    if(ind==n) return 0;
-    ll ans=0,cnt=0;
-    for (int i = 0; i <= arr[ind]; ++i)  // 0-1 , 0-2, 0-3
-    {
-        cout<<ind sps i sp;
-        ans = (i + f(ind+1))%1000000007;
-    }
+ll f(int i, int j,string &s1, string &s2){
+    if(i==-1 || j==-1) return 0;
+    if(dp[i][j]!=-1) return dp[i][j];
     
-    return ans;
+    if(s1[i]==s2[j]) return dp[i][j] = 1 + f(i-1,j-1,s1,s2); 
+    else  return dp[i][j] = max( f(i-1,j,s1,s2), f(i,j-1,s1,s2));
 }
 
 int main(){
-    cin>>n>>k;
-    fi(n) cin>>arr[i];
+    string s1,s2; cin>>s1>>s2;
+    int n = s1.size();
+    int m = s2.size();
     memset(dp,-1,sizeof(dp));
-    ll x= f(0);
-
-    // cout<<x;
+    int x= f(n-1,m-1,s1,s2);
+    int i=n-1,j=m-1;
+    string s ="";
+    if(x==0) return 0;
+    while(i>-1 && j>-1){
+        if(s1[i]==s2[j]){
+            s += s1[i];
+            i--;j--;
+        }
+        else if(dp[i-1][j] > dp[i][j-1] && i!=0) i--;
+        else j--;
+        if(s.size()==x) break;
+    }
+    reverse(s.begin(),s.end());
+    cout<<s;
 }
 
+// Runtime Error 2

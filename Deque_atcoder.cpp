@@ -42,26 +42,25 @@ using namespace std;
 
 const int N = 3e3 + 69;
 ll dp[N][N],arr[N];
-ll n,k,taro=0,jiro=0;
+ll n,taro=0,jiro=0;
 
-ll f(ll ind){
-    if(ind==n) return 0;
-    ll ans=0,cnt=0;
-    for (int i = 0; i <= arr[ind]; ++i)  // 0-1 , 0-2, 0-3
-    {
-        cout<<ind sps i sp;
-        ans = (i + f(ind+1))%1000000007;
-    }
-    
-    return ans;
+ll f(ll i,ll j,bool bb){
+    if(i==j) return arr[i];
+    if(dp[i][j]!=-1) return dp[i][j];
+    ll ans=0;
+
+    ll right = arr[j] - f(i,j-1,!bb);
+    ll left = arr[i] - f(i+1,j,!bb);
+
+    return dp[i][j] = max(right,left);
 }
 
 int main(){
-    cin>>n>>k;
+    cin>>n;
     fi(n) cin>>arr[i];
     memset(dp,-1,sizeof(dp));
-    ll x= f(0);
+    ll x= f(0,n-1,true);
 
-    // cout<<x;
+    cout<<x;
 }
 

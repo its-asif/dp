@@ -40,28 +40,26 @@
 #define S i.second
 using namespace std;
 
-const int N = 3e3 + 69;
-ll dp[N][N],arr[N];
-ll n,k,taro=0,jiro=0;
+int f(int idx, int k, vector<int> &heights, int arr[]){
+    if(idx==0) return 0;
+    if(arr[idx]!=-1) return arr[idx];
 
-ll f(ll ind){
-    if(ind==n) return 0;
-    ll ans=0,cnt=0;
-    for (int i = 0; i <= arr[ind]; ++i)  // 0-1 , 0-2, 0-3
+    int mnSteps= INT_MAX;
+    for (int i = 1; i <= k; ++i)
     {
-        cout<<ind sps i sp;
-        ans = (i + f(ind+1))%1000000007;
+    	if(idx-i>=0){
+	    	int jmp = f(idx-i,k,heights,arr) + abs( heights[idx] - heights[idx-i]);
+	    	mnSteps = min( mnSteps, jmp);
+    	}
     }
-    
-    return ans;
+    return arr[idx]=mnSteps;
 }
 
 int main(){
-    cin>>n>>k;
-    fi(n) cin>>arr[i];
-    memset(dp,-1,sizeof(dp));
-    ll x= f(0);
-
-    // cout<<x;
+    int n,k; cin>>n>>k;
+    vector<int> v(n);
+    fi(n) cin>>v[i];
+    int arr[n] ;
+    memset(arr,-1,sizeof(arr));
+    cout<< f(n-1,k,v,arr);
 }
-

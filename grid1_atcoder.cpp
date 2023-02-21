@@ -39,29 +39,29 @@
 #define F i.first
 #define S i.second
 using namespace std;
+char arr[1000][1000];
+ll dp[3069][3069];
 
-const int N = 3e3 + 69;
-ll dp[N][N],arr[N];
-ll n,k,taro=0,jiro=0;
+ll f(int i, int j){
+    if(i==0 && j==0) return 1;
+    if(i==-1 || j==-1) return 0;
+    if(dp[i][j]!= -1 ) return dp[i][j];
 
-ll f(ll ind){
-    if(ind==n) return 0;
-    ll ans=0,cnt=0;
-    for (int i = 0; i <= arr[ind]; ++i)  // 0-1 , 0-2, 0-3
-    {
-        cout<<ind sps i sp;
-        ans = (i + f(ind+1))%1000000007;
-    }
-    
-    return ans;
+    if(arr[i][j]=='#') return 0;
+
+    int left = f(i,j-1);
+    int up = f(i-1,j);
+    return dp[i][j] = (left+up)% 1000000007;
 }
 
 int main(){
-    cin>>n>>k;
-    fi(n) cin>>arr[i];
+    int n,m; cin>>n>>m;
+    fi(n){
+        fj(m){
+            cin>>arr[i][j];
+        }
+    }
     memset(dp,-1,sizeof(dp));
-    ll x= f(0);
-
-    // cout<<x;
+    cout<< f(n-1,m-1);
 }
 
